@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh_TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {margin:0;padding:0;border:0;outline:none;position:relative;color:black;text-decoration:none;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+        :root{
+            --menu-width: 300px;
+            --menu-btn-size: 30px;
+            --transition: all .3s;
+            --h1-font-size: 2.5rem;
+            --h2-font-size: 1.5rem
+        }
+        html,body { width: 100%; }
+        h1{ font-size: var(--h1-font-size); }
+        h2{ font-size: var(--h2-font-size); margin-bottom:.5rem; }
+        hr{border: 1px solid #ccc;margin:1rem 0;}
+        main { width:1200px; min-width:350px; padding: 5rem 3rem; overflow-x: hidden; }
+        main>section {padding:0 8rem;}
+        main li {margin-left: 1.2rem; padding-left: .2rem;}
+        p, main li{line-height: 1.8rem; letter-spacing: 0.05rem;}
+        p{ text-indent: 2em; }
+        .container{ width: 100%; display: flex; justify-content: center; }
+
+        #menu { width:0; background-color:#fff; height:100vh; flex-shrink:0; padding:5rem 0; box-shadow:5px 0px 15px #ccc; transition:var(--transition); overflow-x:hidden; position:fixed; top:0; left:0; z-index:1; }
+        #menu>ul>li { list-style:none;white-space:nowrap; cursor: pointer; margin-top:.5rem;width: 100%;padding: 1rem;border-radius: 5px;}
+        #menu>ul>li:hover { background-color: #ccc; }
+        #menu-placeholder { width: 0;transition: var(--transition); }
+        #menu-btn{ width: var(--menu-btn-size); aspect-ratio: 1/1; position: fixed; top: 1.5rem; left: 2rem; transform: translateX(0); transition: var(--transition); z-index: 2; cursor: pointer; }
+        #menu-btn>div{ width:100%; height:3px; position: absolute;background-color: #000;border-radius: 1.5px;transition:var(--transition); }
+        #menu-btn>div:nth-child(1){ top: 0; width: 100%; transform: rotate(0deg); }
+        #menu-btn>div:nth-child(2){ top: 10px; }
+        #menu-btn>div:nth-child(3){ top: 20px; width: 100%; transform: rotate(0deg); }
+
+        .sectionSwitcher{ width: 100%; display:flex; justify-content: space-between; margin:2rem 0; }
+        .sectionSwitcher>button{ width: 120px; height: 60px; font-weight: bolder; font-size: 1.5rem; cursor: pointer; border-radius: 5px; background-color: #ddd; }
+        .sectionSwitcher>button:not(:disabled):hover{ background-color: #ccc; }
+        .sectionSwitcher>button:disabled{ cursor: not-allowed; opacity: 0.3; }
+
+        .callout{ padding: 1.5rem; background-color: #f2f2f2; margin: .5rem 0; }
+        .callout p{ text-indent: 0em; }
+
+        body.menu-open #menu { width: var(--menu-width); padding: 5rem 2rem; }
+        body.menu-open #menu-placeholder { width: var(--menu-width); }
+        body.menu-open #menu-btn { left:calc(var(--menu-width) - 1.5rem); transform: translateX(-100%); }
+        body.menu-open #menu-btn>div:nth-child(1) { top: 6.5px; width: 50%; transform: rotate(-30deg); }
+        body.menu-open #menu-btn>div:nth-child(3) { top: 13.5px; width: 50%; transform: rotate(30deg); }
+
+        @media screen and (max-width: 1000px){ main>section{padding:0 3rem;} }
+        @media screen and (max-width: 768px){ main>section{padding:0 1rem;} main{padding-left: 1rem; padding-right: 1rem;} }
+    </style>
+    <title>技術文件撰寫心得</title>
+</head>
+<body class="menu-open0">
+
+<div id="menu-btn">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<aside id="menu">
+    <ul>
+        <li>簡介</li>
+        <li>需求</li>
+        <li>設計</li>
+        <li>SUM 軟體使用手冊</li>
+        <li>文件規格</li>
+    </ul>
+</aside>
+<div class="container">
+    <div id="menu-placeholder"></div>
+    <main >
+        <!----------------------------------------------------->
+        <section>
+            <h1>簡介</h1>
+            <hr>
+            <h2>聲明</h2>
+            <p>
+                這是一篇關於「如何撰寫技術文件」的文章，
+                本文章都是以我個人的經驗與觀點為主，來進行撰寫的，
+                因此內容並非絕對，閱讀時請以中立的觀點進行閱覽。
+            </p><br><br>
+            <h2>目的</h2>
+            <p>
+                撰寫這篇文章的目的，主要是為了清晰的梳理我對「軟體開發流程」的認知，
+                進而鞏固已掌握的概念，填補可能存在的知識空白。
+                另一方面是希望可以幫助其他開發者，了解 SRS、SDD、SUM 對軟體開發流程的關係。
+            </p><br><br>
+            <h2>前置說明</h2>
+            <p>
+                在開始前，有個必須先說明的重要觀念，技術文件是貫穿整個軟體開發過程的重要部分，
+                它們不應該在整個軟體都開發完成之後，
+                才開始去撰寫，而是應該隨著開發步驟，逐一去撰寫它們。
+            </p>
+            <div class="sectionSwitcher">
+                <button type="button" data-type="-" disabled>&lt;</button>
+                <button type="button" data-type="+">&gt;</button>
+            </div>
+        </section>
+        <!----------------------------------------------------->
+        <section>
+            <h1>需求</h1>
+            <hr>
+            <h2>收集需求</h2>
+            <div class="callout">
+                <p>「需求」是後續所有設計和開發的基礎。</p>
+            </div>
+            <p>
+                沒有需求，就無法進行軟體開發，因為根本無法知道要製作什麼，
+                所以收集需求是最首要的一步，具體上的行動，就是先與利益相關者 (如客戶、使用者) 
+                進行會議和訪談，並且在過程中收集需求。
+            </p><br><br>
+            <h2>分析需求</h2>
+            <p>
+                客戶所描述的需求不一定具體，也許說明的不夠精確，也許敘述中留有歧義的空間，
+                這些都可能造成解讀上出現差異，使得成品不符合對方的要求。
+            </p><br>
+            <p>
+                所以收集完需求，必須先將其轉化為具體的功能需求與非功能需求，
+                接著讓客戶查看每一條「寫清楚」的需求，確認雙方對於需求的理解達成共識，
+                如此一來，就不會發生「成品不是客戶想要的」的清況了。
+            </p><br><br>
+            <h2>撰寫軟體需求規格書(SRS)</h2>
+            <div class="callout">
+                <p>
+                    SRS 軟體需求規格書<wbr>(Software&nbsp;Requirements Specification)<br><br>
+                    它是一份文件，用來清晰描述軟體的所有需求與目標，
+                    它的目的是向開發團隊提供清晰的指導，以便進行後續的軟體設計。
+                </p>
+            </div>
+            <p>
+                所以
+            </p>
+            <div class="sectionSwitcher">
+                <button type="button" data-type="-">&lt;</button>
+                <button type="button" data-type="+">&gt;</button>
+            </div>
+        </section>
+        <!----------------------------------------------------->
+        <section>
+            <h1>設計</h1>
+            <hr>
+            <h2>撰寫軟體設計文件(SDD)</h2>
+            <div class="callout">
+                <p>
+                    SDD 軟體設計文件<wbr>(Software&nbsp;Design&nbsp;Document)<br><br>
+                    它是一份文件，用來詳細描述如何根據SRS中的需求，來設計軟體的各種功能與介面，
+                    包括軟體架構與架構下的細項模組、元件、接口以及介面設計等內容，
+                    目的是向開發團隊提供具體的軟體設計方案，並確保軟體的設計符合需求。
+                </p>
+            </div>
+            <p>
+                如果你在沒有 SRS 的情況下，想直接撰寫 SDD，你應該會感到非常迷茫，
+                因為你在沒有任何「需求」的情況下，想設計出東西，會發現根本設計不出來，
+                所以這本文件需要等到 SRS 完成之後才開始寫。
+            </p><br>
+            <p>
+                所以這本文件需要等到 SRS 完成之後才開始寫，
+            </p>
+            <div class="sectionSwitcher">
+                <button type="button" data-type="-">&lt;</button>
+                <button type="button" data-type="+">&gt;</button>
+            </div>
+        </section>
+        <!----------------------------------------------------->
+        <section>
+            <h1>SUM 軟體使用手冊</h1>
+            <hr>
+            <div class="sectionSwitcher">
+                <button type="button" data-type="-">&lt;</button>
+                <button type="button" data-type="+" disabled>&gt;</button>
+            </div>
+        </section>
+        <!----------------------------------------------------->
+        <section>
+            <h1>文件規格</h1>
+            <hr>
+            <div class="sectionSwitcher">
+                <button type="button" data-type="-">&lt;</button>
+                <button type="button" data-type="+">&gt;</button>
+            </div>
+        </section>
+        <!----------------------------------------------------->
+    </main>
+</div>
+</body>
+<script>
+
+let readingSectionIndex = 1
+const sections = document.querySelectorAll('main > section')
+const menuOptions = document.querySelectorAll('aside > ul > li')
+const sectionSwitcherButtons = document.querySelectorAll('.sectionSwitcher > button:not(:disabled)')
+const menuToggleButton = document.querySelector('#menu-btn')
+
+function showSection(){
+    sections.forEach( section => section.style.display = 'none' )
+    sections[readingSectionIndex].style.display = 'block'
+    menuOptions.forEach( section => section.style.backgroundColor = '' )
+    menuOptions[readingSectionIndex].style.backgroundColor = '#ccc'
+}
+
+menuOptions.forEach( menuOption => {
+    menuOption.addEventListener('click', e => {
+        const index = Array.from(e.target.parentNode.children).indexOf(e.target)
+        readingSectionIndex = index
+        showSection()
+    })
+})
+
+sectionSwitcherButtons.forEach( button => {
+    button.addEventListener('click', () => {
+        switch(button.getAttribute('data-type')){
+            case '+': readingSectionIndex+=1; break
+            case '-': readingSectionIndex-=1; break
+        }
+        showSection()
+    })
+    
+})
+
+menuToggleButton.addEventListener('click', () => document.body.classList.toggle('menu-open'))
+
+showSection()
+
+</script>
+</html>

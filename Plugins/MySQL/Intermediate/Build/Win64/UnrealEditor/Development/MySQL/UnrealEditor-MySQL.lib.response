@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-MySQL.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Users\User\Desktop\Warace\Intermediate\Build\Win64\WaraceEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.NoUndef.InclOrderUnreal5_0.h.obj"
+"D:\Users\User\Desktop\Warace\Plugins\MySQL\Intermediate\Build\Win64\UnrealEditor\Development\MySQL\Module.MySQL.cpp.obj"
+"D:\Users\User\Desktop\Warace\Plugins\MySQL\Intermediate\Build\Win64\UnrealEditor\Development\MySQL\Default.rc2.res"
+/OUT:"D:\Users\User\Desktop\Warace\Plugins\MySQL\Intermediate\Build\Win64\UnrealEditor\Development\MySQL\UnrealEditor-MySQL.lib"
